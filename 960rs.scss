@@ -1,0 +1,67 @@
+/**
+  @name 960px grid with responsive (like bootstrap) breakpoints
+  @author rdsedmundo(at)gmail(dot)com
+*/
+$gutter: 10px;
+$gridSize: 960px;
+$breakpoints: (xs, 1px) (sm, 768px) (md, 992px) (lg, 1200px);
+
+.container-fluid {
+  max-width: $gridSize;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $gutter;
+  padding-right: $gutter;
+}
+
+.row {
+  margin-left: -$gutter;
+  margin-right: -$gutter;
+}
+
+[class*="col-"] {
+  position: relative;
+  min-height: 1px;
+  padding-left: $gutter;
+  padding-right: $gutter;  
+}
+
+@each $class, $resolution in $breakpoints {
+  @media screen and (min-width: $resolution) {
+    @for $i from 1 through 12 {
+      .col-#{$class}-#{$i} {
+        width: $i * (100%/12);
+        float: left;
+      }
+    }
+    
+    @for $i from 0 through 12 {
+      .col-#{$class}-offset-#{$i} {
+        margin-left: $i * (100%/12);
+      }
+    }  
+  }
+}
+
+.alpha {
+  padding-left: 0 !important;
+}
+
+.omega {
+  padding-right: 0 !important;
+}
+
+.clearfix:before,
+.clearfix:after,
+.container-fluid:before,
+.container-fluid:after,
+.row:before,
+.row:after {
+    content: " ";
+    display: table
+}
+.clearfix:after,
+.container-fluid:after,
+.row:after {
+    clear: both;
+}
